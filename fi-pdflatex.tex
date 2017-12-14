@@ -1,0 +1,295 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% I, the copyright holder of this work, release this work into the
+%% public domain. This applies worldwide. In some countries this may
+%% not be legally possible; if so: I grant anyone the right to use
+%% this work for any purpose, without any conditions, unless such
+%% conditions are required by law.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{beamer}
+\usetheme[faculty=fi,logo=otinanai]{fibeamer}
+\usepackage[utf8]{inputenc}
+\usepackage[main=english]{babel}
+
+%% These macros specify information about the presentation
+\title{Introduction to Git} %% that will be typeset on the
+\subtitle{GEO2020 - 15/12/2017} %% title page.
+\author{Stelios Vitalis}
+	
+%% These additional packages are used within the document:
+\usepackage{ragged2e}  % `\justifying` text
+\usepackage{booktabs}  % Tables
+\usepackage{tabularx}
+\usepackage{tikz}      % Diagrams
+\usetikzlibrary{calc, shapes, backgrounds, mindmap, trees}
+\usepackage{smartdiagram}
+\usepackage{amsmath, amssymb}
+\usepackage{url}       % `\url`s
+\usepackage{listings}  % Code listings
+\lstset{language=[LaTeX]{TeX}}
+\usepackage{minted}
+\frenchspacing
+
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+\definecolor{burntorange}{cmyk}{0,0.52,1,0}
+
+\usepackage{subcaption}
+\usepackage{gitdags}
+
+\makeatletter
+\renewcommand\fibeamer@includeLogo[1][]{}
+\newcommand{\bftt}[1]{\textbf{\texttt{#1}}}
+\newcommand{\comment}[1]{{\color[HTML]{008080}\textit{\textbf{\texttt{#1}}}}}
+\newcommand{\cmd}[1]{{\color[HTML]{008000}\bftt{#1}}}
+\newcommand{\bs}{\char`\\}
+\newcommand{\cmdbs}[1]{\cmd{\bs#1}}
+\newcommand{\lcb}{\char '173}
+\newcommand{\rcb}{\char '175}
+\newcommand{\cmdbegin}[1]{\cmdbs{begin\lcb}\bftt{#1}\cmd{\rcb}}
+\newcommand{\cmdend}[1]{\cmdbs{end\lcb}\bftt{#1}\cmd{\rcb}}
+\makeatother
+
+\newcommand*\keystroke[1]{%
+	\tikz[baseline=(key.base)]
+	\node[%
+	draw,
+	fill=white,
+	drop shadow={shadow xshift=0.25ex,shadow yshift=-0.25ex,fill=black,opacity=0.75},
+	rectangle,
+	rounded corners=2pt,
+	inner sep=1pt,
+	line width=0.5pt,
+	font=\scriptsize\sffamily
+	](key) {#1\strut}
+	;
+}
+\newcommand{\keystrokebftt}[1]{\keystroke{\bftt{#1}}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\begin{document}
+  \frame{\maketitle}
+
+  \AtBeginSection[]{% Print an outline at the beginning of sections
+    \begin{frame}<beamer>
+      \frametitle{Outline for Section \thesection}
+      \tableofcontents[currentsection]
+    \end{frame}
+}
+
+	\section{Version Control}
+\subsection{Why do we need it?}
+\begin{frame}{Versioning and Collaboration}
+\framesubtitle{The general concept}
+It's useful because:
+\begin{itemize}
+	\item It tracks history of our work
+	\item It allows us to work as a team
+	\item It can be used to extract statistics about a project
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Is it really new?}
+\framesubtitle{Cloud already uses it}
+You have probably used it on documents if you use:
+\begin{itemize}
+\item Dropbox + MS Office
+\item Google Drive + Google Docs
+\item OneDrive + MS Office
+\end{itemize}
+\end{frame}
+
+\subsection{What is it?}
+\begin{frame}{Version Control System (VCS)}
+\framesubtitle{Definition}
+
+\begin{definition}
+	\emph{Version Control is the \alert{management} of changes to documents, computer programs, large web sites, and other collections of information.}\footnote[frame]{Wikipedia}
+\end{definition}
+\end{frame}
+
+\begin{frame}{Version Control System (VCS)}
+\framesubtitle{Benefits}
+
+A VCS:
+\begin{itemize}
+	\item keeps \alert{revisions}
+	\item allows for \alert{true collaboration}
+	\item encapsulates \alert{workflow} (e.g. track time, issues, project management)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{VCS vs Cloud}
+\framesubtitle{Although not really a comparison}
+
+\begin{table}[!b]
+	{\carlitoTLF % Use monospaced lining figures
+		\begin{tabularx}{\textwidth}{Xcc}
+			& \textbf{VCS} & \textbf{Cloud} \\
+			\toprule
+			Revisions & Manual & Auto \\
+			\textbf{Revision Information} \\
+			Author & \cmark & \cmark \\
+			Timestamp & \cmark & \cmark \\
+			Message & \cmark & \alert{\xmark} \\
+			\textbf{Collaboration} \\
+			Sharing & \cmark & \cmark \\
+			Concurrent working & \cmark & \alert{\textbf{?}} \\
+			Branching & \cmark & \alert{\xmark} \\
+			\bottomrule
+	\end{tabularx}}
+\end{table}
+
+But don't be confused... It can't replace your cloud file storage!
+\end{frame}
+
+    \begin{frame}{VCS}
+    \framesubtitle{Definitions}
+    
+    \begin{block}{Repository}
+    	A storage location where all versions and information about them are stored.
+    \end{block}
+
+	\begin{block}{Workspace}
+		The actual working directory of the user.
+	\end{block}
+\end{frame}
+
+    \subsection{Architecture}
+    
+    \begin{frame}{Types of VCS}
+    There are two types:
+    \begin{itemize}
+    	\item Centralised
+    	\begin{itemize}
+    		\item Subversion (SVN)
+    		\item Microsoft Team Foundation Server (TFS)
+    		\item Concurrent Versions System (CVS)
+    	\end{itemize}
+    	\item Distributed
+    	\begin{itemize}
+    		\item Git
+    		\item Mercurial
+    	\end{itemize}
+    \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Centralised}
+    \framesubtitle{Architecture}
+    
+    A server is the only repository and every user has a workspace.
+\begin{figure}
+	\begin{tikzpicture}
+	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
+	thin,bottom color=orange!30, top color=white,
+	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
+	\tikzstyle{workspace} = [rectangle, draw, violet,
+	thin,bottom color=violet!30, top color=white,
+	text=violet, minimum width=2.5cm, minimum height=0.8cm]
+	
+	\node[repository] at (0,0) (server) {Server 1};
+	\node[workspace] at (-3,-3) (user1) {User 1};
+	\node[workspace] at (0,-3) (user2) {User 2};
+	\node[workspace] at (3,-3) (user3) {User 3};
+	
+	\draw[thick, ->] (user1) -- (server);
+	\draw[thick, ->] (user2) -- (server);
+	\draw[thick, ->] (user3) -- (server);
+	
+	\node[repository, scale=0.6] at (4,0.6) {Repository};
+\node[workspace, scale=0.6] at (4,0) {Workspace};
+	
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+   \begin{frame}{Distributed}
+\framesubtitle{Architecture}
+
+No ``master'' server. Every user has a repository and a workspace.
+\begin{figure}
+	\begin{tikzpicture}
+	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
+	thin,bottom color=orange!30, top color=white,
+	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
+	\tikzstyle{workspace} = [rectangle, draw, violet,
+	thin,bottom color=violet!30, top color=white,
+	text=violet, minimum width=2.5cm, minimum height=0.8cm]
+	
+	\node[repository] at (-1.5,0) (server1) {Server 1};
+	\node[repository] at (1.5,0) (server2) {Server 2};
+	\node[repository] at (-3,-2.8) (repo1) {User 1};
+	\node[repository] at (0,-2.8) (repo2) {User 2};
+	\node[repository] at (3,-2.8) (repo3) {User 3};
+	\node[workspace] at (-3, -4) (ws1) {User 1};
+	\node[workspace] at (0, -4) (ws2) {User 2};
+	\node[workspace] at (3, -4) (ws3) {User 3};
+		
+	\draw[thick, <->] (repo1) -- (server1);
+	\draw[thick, <->] (repo2) -- (server1);
+	\draw[thick, <->] (repo3) -- (server1);
+	
+	\draw[thick, <->] (repo1) -- (server2);
+	\draw[thick, <->] (repo2) -- (server2);
+	\draw[thick, <->] (repo3) -- (server2);
+	
+	\draw[thick, <->] (server1) -- (server2);
+
+	\draw[thick, <->] (repo1) -- (repo2);
+	\draw[thick, <->] (repo2) -- (repo3);
+	
+	\draw[thick, ->] (ws1) -- (repo1);
+	\draw[thick, ->] (ws2) -- (repo2);
+	\draw[thick, ->] (ws3) -- (repo3);
+	
+	\node[repository, scale=0.6] at (4,0.6) {Repository};
+	\node[workspace, scale=0.6] at (4,0) {Workspace};
+	
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+    
+    \subsection{How does it work?}
+    \begin{frame}{Repository ``internals''}
+      \framesubtitle{It's a graph}%
+      \begin{figure}
+      		\centering
+      		\begin{tikzpicture}
+      		% Commit DAG
+      		\gitDAG[grow right sep = 2em]{
+      			A -- B -- { 
+      				C,
+      				D -- E,
+      			}
+      		};
+      		% Tag reference
+      		\gittag
+      		[v0p1]       % node name
+      		{v0.1}       % node text
+      		{above=of A} % node placement
+      		{A}          % target
+      		% Remote branch
+      		\gitremotebranch
+      		[origmaster]    % node name
+      		{origin/master} % node text
+      		{above=of C}    % node placement
+      		{C}             % target
+      		% Branch
+      		\gitbranch
+      		{master}     % node name and text 
+      		{above=of E} % node placement
+      		{E}          % target
+      		% HEAD reference
+      		\gitHEAD
+      		{above=of master} % node placement
+      		{master}          % target
+      		\end{tikzpicture}
+      	\caption{Demonstrating a typical \texttt{rebase}}
+      \end{figure}
+    \end{frame}
+    
+    
+\end{document}
