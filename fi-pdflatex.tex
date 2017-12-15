@@ -37,6 +37,13 @@
 \usepackage{subcaption}
 \usepackage{gitdags}
 
+\usetikzlibrary{decorations.pathmorphing}
+
+\definecolor{bluport}{HTML}{21ADFD}
+\definecolor{orgport}{HTML}{E37322}
+\definecolor{pplport}{HTML}{4F21E9}
+\definecolor{redport}{HTML}{701315}
+
 \makeatletter
 \renewcommand\fibeamer@includeLogo[1][]{}
 \newcommand{\bftt}[1]{\textbf{\texttt{#1}}}
@@ -74,7 +81,7 @@
 
   \AtBeginSection[]{% Print an outline at the beginning of sections
     \begin{frame}<beamer>
-      \frametitle{Outline for Section \thesection}
+     % \frametitle{Outline for Section \thesection}
       \tableofcontents[currentsection]
     \end{frame}
 }
@@ -252,7 +259,7 @@ No ``master'' server. Every user has a repository and a workspace.
 \end{figure}
 \end{frame}
     
-    \subsection{How does it work?}
+    \subsection{Commits}
     \begin{frame}{Repository ``internals''}
       \framesubtitle{It's a graph}%
       \begin{figure}
@@ -261,35 +268,332 @@ No ``master'' server. Every user has a repository and a workspace.
       		% Commit DAG
       		\gitDAG[grow right sep = 2em]{
       			A -- B -- { 
-      				C,
-      				D -- E,
+      				C -- D,
       			}
       		};
-      		% Tag reference
-      		\gittag
-      		[v0p1]       % node name
-      		{v0.1}       % node text
-      		{above=of A} % node placement
-      		{A}          % target
-      		% Remote branch
-      		\gitremotebranch
-      		[origmaster]    % node name
-      		{origin/master} % node text
-      		{above=of C}    % node placement
-      		{C}             % target
-      		% Branch
-      		\gitbranch
-      		{master}     % node name and text 
-      		{above=of E} % node placement
-      		{E}          % target
-      		% HEAD reference
-      		\gitHEAD
-      		{above=of master} % node placement
-      		{master}          % target
       		\end{tikzpicture}
-      	\caption{Demonstrating a typical \texttt{rebase}}
       \end{figure}
+  
+  This nodes are called \alert{commits} or \alert{revisions}.
     \end{frame}
-    
+
+    \begin{frame}{Commit or Revision}
+\framesubtitle{Information}%
+Every commit has:
+\begin{itemize}
+	\item \textbf{ID}: some short of identifier
+	\item \textbf{Author}: \texttt{name} and \texttt{email} of user who commits
+	\item \textbf{Timestamp}: \texttt{time} of commit
+	\item \textbf{Message}: \texttt{what} the commit contains
+\end{itemize}
+and, of course, the \alert{changes} of the files that are submitted.
+\end{frame}
+
+\subsection{Branches}
+\begin{frame}{Repository ``internals''}
+\framesubtitle{Branching}%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	% Commit DAG
+	\gitDAG[grow right sep = 2em]{
+		A -- B -- { 
+			C -- D,
+		}
+	};
+	\gitbranch
+	{master}     % node name and text 
+	{above=of D} % node placement
+	{D}          % target
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Repository ``internals''}
+\framesubtitle{Branching}%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	% Commit DAG
+	\gitDAG[grow right sep = 2em]{
+		A -- B -- C -- D -- { 
+			E,
+		}
+	};
+	\gitbranch
+	{master}     % node name and text 
+	{above=of D} % node placement
+	{D}          % target
+	\gitbranch
+	{one-branch}
+	{above=of E}
+	{E}
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Repository ``internals''}
+\framesubtitle{Branching}%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	% Commit DAG
+	\gitDAG[grow right sep = 2em]{
+		A -- B -- C -- D -- { 
+			F,
+			E,
+		}
+	};
+	\gitbranch
+	{master}     % node name and text 
+	{above=of F} % node placement
+	{F}          % target
+	\gitbranch
+	{one-branch}
+	{below=of E}
+	{E}
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Repository ``internals''}
+\framesubtitle{Branching}%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	% Commit DAG
+	\gitDAG[grow right sep = 2em]{
+		A -- B -- C -- D -- { 
+			F,
+			E -- G -- H,
+		}
+	};
+	\gitbranch
+	{master}     % node name and text 
+	{above=of F} % node placement
+	{F}          % target
+	\gitbranch
+	{one-branch}
+	{below=of H}
+	{H}
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Repository ``internals''}
+\framesubtitle{Merging}%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	% Commit DAG
+	\gitDAG[grow right sep = 2em]{
+		D -- { 
+			F,
+			E -- G -- H,
+		} -- I
+	};
+	\gitbranch
+	{master}     % node name and text 
+	{above=of I} % node placement
+	{I}          % target
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Repository ``internals''}
+\framesubtitle{It's a graph}%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	% Commit DAG
+	\gitDAG[grow right sep = 2em]{
+		A -- B -- { 
+			C,
+			D -- E,
+		}
+	};
+	% Tag reference
+	\gittag
+	[v0p1]       % node name
+	{v0.1}       % node text
+	{above=of A} % node placement
+	{A}          % target
+	% Remote branch
+	\gitremotebranch
+	[origmaster]    % node name
+	{origin/master} % node text
+	{above=of C}    % node placement
+	{C}             % target
+	% Branch
+	\gitbranch
+	{master}     % node name and text 
+	{above=of E} % node placement
+	{E}          % target
+	% HEAD reference
+	\gitHEAD
+	{above=of master} % node placement
+	{master}          % target
+	\end{tikzpicture}
+	\caption{Demonstrating a typical \texttt{rebase}}
+\end{figure}
+\end{frame}
+
+\section{Git}
+
+\subsection{Definitions}
+\begin{frame}{Git}
+\framesubtitle{Some History}
+Git was created by Linus Torvalds in 2005 because there was no decent version control system to maintain the Linux kernel.
+
+He described the tool as "the stupid content tracker".
+\end{frame}
+
+\begin{frame}{Git}
+\framesubtitle{Some History}
+He setup the following objectives:
+\begin{itemize}
+	\item Performance
+	\item Take CVS as an example of what not to do; if in doubt, make the exact opposite decision
+	\item Support a distributed, BitKeeper-like workflow
+	\item Include very strong safeguards against corruption, either accidental or malicious
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Git}
+\framesubtitle{Definitions}
+
+\begin{tikzpicture}
+
+\fill[pplport!15] (12, 0) ellipse (0.25 and 3);
+\fill[redport!15] (2.75, -3) rectangle (3.25, 3);
+\fill[bluport!15] (6, 0) ellipse (0.25 and 3);
+\fill[orgport!15] (9, 0) ellipse (0.25 and 3);
+
+\draw[thick, pplport] (12, 0) ellipse (0.25 and 3);
+\draw[ultra thick, pplport, decorate, decoration={snake, segment length=1mm, amplitude=0.3mm}] (12, 0) ellipse (0.23 and 3.05);
+\node[text height=1em, text depth=1em, pplport] (1) at (12, -3.5) {\emph{remote}};
+
+\draw[ultra thick, redport] (2.75, -3) rectangle (3.25, 3);
+\node[text height=1em, text depth=1em, redport] (2) at (3, -3.5) {\emph{working directory}};
+
+\draw[thick, orgport] (9, 0) ellipse (0.25 and 3);
+\draw[ultra thick, orgport, decorate, decoration={snake, segment length=1mm, amplitude=0.3mm}] (9, 0) ellipse (0.23 and 3.05);
+\node[text height=1em, text depth=1em, orgport] (4) at (9, -3.5) {\emph{repository}};
+
+\draw[-stealth, very thick] (6, 2) -- node[above] {\tt\footnotesize git commit} (9, 2);
+\draw[-stealth, very thick] (9, 1) -- node[above] {\tt\footnotesize git checkout} (6, 1);
+\draw[-stealth, very thick] (9, 0) -- node[above] {\tt\footnotesize git reset} (6, 0);
+\draw[very thick] (6, -2) -- node[above] {\tt\scriptsize git diff -{}-staged} (9, -2);
+\draw[very thick] (3, -2.5) -- node[above, pos=0.75] {\tt\scriptsize git diff HEAD} (9, -2.5);
+\draw[-stealth, very thick] (9, -0.5) -- node[above, pos=0.25] {\tt\footnotesize git rebase} (3, -0.5);
+\draw[-stealth, very thick] (9, -1) -- node[above, pos=0.25] {\tt\footnotesize git merge} (3, -1);
+
+% draw the blue portal here for the portal effect
+\draw[thick, bluport] (6, 0) ellipse (0.25 and 3);
+\draw[ultra thick, bluport, decorate, decoration={snake, segment length=1mm, amplitude=0.3mm}] (6, 0) ellipse (0.23 and 3.05);
+\node[text height=1em, text depth=1em, bluport] (3) at (6, -3.5) {\emph{index}};
+
+% Redraw some lines for piercing effect through blu port
+\draw[-stealth, very thick] (6, -0.5) -- (3, -0.5);
+\draw[-stealth, very thick] (6, -1) -- (3, -1);	
+\draw[very thick] (3, -2.5) -- (6, -2.5);
+
+\draw[-stealth, very thick] (3, 2.5) -- node[above] {\tt\footnotesize git add/rm} (6, 2.5);
+\draw[-stealth, very thick] (9, 1.5) -- node[above] {\tt\footnotesize git push} (12, 1.5);
+\draw[-stealth, very thick] (6, 1) -- node[above] {\tt\footnotesize git checkout} (3, 1);
+\draw[-stealth, very thick] (12, 0.5) -- node[above, pos=0.17] {\tt\footnotesize git pull} (3, 0.5);
+\draw[-stealth, very thick] (12, -0.8) -- node[above] {\tt\footnotesize git fetch} (9, -0.8);
+\draw[very thick] (3, -1.5) -- node[above] {\tt\footnotesize git diff} (6, -1.5);
+\end{tikzpicture}
+
+\end{frame}
+
+\subsection{Init or Clone}
+
+\begin{frame}{Create a repository}
+\framesubtitle{From scratch}
+
+\begin{block}{	\texttt{git init}}
+ 	Creates a new empty repository.
+ \end{block}
+
+The \emph{working directory} is not affected, but an empty repository and index is created.
+
+\end{frame}
+
+\begin{frame}{Create a repository}
+\framesubtitle{From a remote}
+
+\begin{block}{	\texttt{git clone \emph{remote\_address}}}
+	Creates a copy of an existing online repository.
+\end{block}
+
+\begin{itemize}
+	\item A new folder is created.
+	\item All commits/branches etc. are copied locally.
+	\item The source repository is set as the \emph{origin} remote.
+\end{itemize}
+
+\end{frame}
+
+\subsection{Add and Commit}
+
+\begin{frame}{Status}
+\framesubtitle{See where you stand}
+
+\begin{block}{	\texttt{git status}}
+	Gives all information about the current state of repository and index.
+\end{block}
+
+\begin{itemize}
+	\item Shows current branch and difference with remote.
+	\item Shows the staged files.
+	\item Shows changed but not staged files.
+	\item Shows untracked files.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Create a commit}
+\framesubtitle{Add files to the index}
+
+\begin{block}{	\texttt{git add \emph{filename}}}
+	Adds the file to the index. We say it's \alert{staged}.
+\end{block}
+
+\begin{itemize}
+	\item The current file from \emph{working directory} is copied to the \emph{index} only if it has changes compared to HEAD.
+	\item Nothing has been committed yet.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Create a commit}
+\framesubtitle{Commit staged files}
+
+\begin{block}{	\texttt{git commit -m \emph{``message"}}}
+	Adds creates a commit with the state of the index and the given message.
+\end{block}
+
+\begin{itemize}
+	\item The current file from \emph{working directory} is copied to the \emph{index} only if it has changes compared to HEAD.
+	\item Nothing has been committed yet.
+\end{itemize}
+
+\end{frame}
+
+\subsection{Checkout}
+
+\subsection{Branch}
+
+\subsection{Merge}
+
+\subsection{Pull}
+
+\subsection{Push}
+
+\section{Github and Workflow}
+
+
     
 \end{document}
