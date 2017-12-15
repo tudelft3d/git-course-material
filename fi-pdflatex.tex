@@ -535,6 +535,7 @@ The \emph{working directory} is not affected, but an empty repository and index 
 
 \begin{itemize}
 	\item The current file from \emph{working directory} is copied to the \emph{index} only if it has changes compared to HEAD.
+	\item The \emph{filename} can be a pattern. Eg. ``\texttt{git add .}'' will add all files.
 	\item Nothing has been committed yet.
 \end{itemize}
 
@@ -603,14 +604,74 @@ The \emph{working directory} is not affected, but an empty repository and index 
 \framesubtitle{Commit staged files}
 
 \begin{block}{	\texttt{git commit -m \emph{``message"}}}
-	Adds creates a commit with the state of the index and the given message.
+	Creates a commit from a copy of the index.
 \end{block}
 
 \begin{itemize}
-	\item The current file from \emph{working directory} is copied to the \emph{index} only if it has changes compared to HEAD.
-	\item Nothing has been committed yet.
+	\item The new commit has the given message.
+	\item After the commit, the index is cleared.
+	\item The \emph{HEAD} and the current \emph{branch} tags are moved to the new commit.
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{\texttt{Git commit -m "Changes to file.txt"}}
+\begin{figure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{tikzpicture}
+		% Commit DAG
+		\gitDAG[grow right sep = 2em]{
+			c7e2daa -- 2c7ae1b -- { 
+				{[nodes=unreachable] index -- {workspace} }
+			}
+		};
+		% Branch
+		\gitbranch
+		{master}     % node name and text 
+		{above=of 2c7ae1b} % node placement
+		{2c7ae1b}          % target
+		% Remote branch
+		\gitremotebranch
+		[origmaster]    % node name
+		{file.txt} % node text
+		{above=of index}    % node placement
+		{index}             % target
+		% HEAD reference
+		\gitHEAD
+		{above=of master} % node placement
+		{master}          % target
+		\end{tikzpicture}
+		\subcaption{Before\ldots}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\gitDAG[grow right sep = 2em]{
+			c7e2daa -- 2c7ae1b -- 3a5de77 -- { 
+				{[nodes=unreachable] index -- {workspace} }
+			}
+		};
+		% Branch
+		\gitbranch
+		{master}     % node name and text 
+		{above=of 3a5de77} % node placement
+		{3a5de77}          % target
+		% Remote branch
+		\gitremotebranch
+		[origmaster]    % node name
+		{file.txt} % node text
+		{below=of 3a5de77}    % node placement
+		{3a5de77}             % target
+		% HEAD reference
+		\gitHEAD
+		{above=of master} % node placement
+		{master}          % target
+		\end{tikzpicture}
+		\subcaption{\ldots{} and after}
+	\end{subfigure}
+\end{figure}
 \end{frame}
 
 \subsection{Checkout}
@@ -619,12 +680,13 @@ The \emph{working directory} is not affected, but an empty repository and index 
 \framesubtitle{Change branch or version}
 
 \begin{block}{	\texttt{git checkout \emph{ref}}}
-	Adds creates a commit with the state of the index and the given message.
+	Moves to a branch/commit and changes the working directory accordingly.
 \end{block}
 
 \begin{itemize}
-	\item The current file from \emph{working directory} is copied to the \emph{index} only if it has changes compared to HEAD.
-	\item Nothing has been committed yet.
+	\item The \emph{ref} can be a branch name, commit id or something else...
+	\item The \emph{HEAD} moves to the refered commit.
+	\item The current branch changes (if a branch name is given).
 \end{itemize}
 
 \end{frame}
