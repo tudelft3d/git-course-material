@@ -541,7 +541,7 @@ The \emph{working directory} is not affected, but an empty repository and index 
 
 \end{frame}
 
-\begin{frame}{\texttt{Git add file.txt}}
+\begin{frame}{\texttt{git add file.txt}}
 \begin{figure}
 	\begin{subfigure}[b]{\textwidth}
 		\centering
@@ -586,10 +586,16 @@ The \emph{working directory} is not affected, but an empty repository and index 
 {2c7ae1b}          % target
 % Remote branch
 \gitremotebranch
-[origmaster]    % node name
+[filetxtindex]    % node name
 {file.txt} % node text
 {above=of {index}}    % node placement
 {{index}}             % target
+		% Remote branch
+\gitremotebranch
+[filetxtws]    % node name
+{file.txt} % node text
+{above=of {working dir}}    % node placement
+{{working dir}}             % target
 % HEAD reference
 \gitHEAD
 {above=of master} % node placement
@@ -615,7 +621,7 @@ The \emph{working directory} is not affected, but an empty repository and index 
 
 \end{frame}
 
-\begin{frame}{\texttt{Git commit -m "Changes to file.txt"}}
+\begin{frame}{\texttt{git commit -m "Changes to file.txt"}}
 \begin{figure}
 	\begin{subfigure}[b]{\textwidth}
 		\centering
@@ -637,6 +643,12 @@ The \emph{working directory} is not affected, but an empty repository and index 
 		{file.txt} % node text
 		{above=of index}    % node placement
 		{index}             % target
+				% Remote branch
+		\gitremotebranch
+		[filetxtws]    % node name
+		{file.txt} % node text
+		{above=of workspace}    % node placement
+		{workspace}             % target
 		% HEAD reference
 		\gitHEAD
 		{above=of master} % node placement
@@ -691,7 +703,61 @@ The \emph{working directory} is not affected, but an empty repository and index 
 
 \end{frame}
 
-\subsection{Merge}
+\begin{frame}{\texttt{git checkout 2c7ae1b}}
+\begin{figure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{tikzpicture}
+\gitDAG[grow right sep = 2em]{
+	c7e2daa -- 2c7ae1b -- 3a5de77
+};
+% Branch
+\gitbranch
+{master}     % node name and text 
+{above=of 3a5de77} % node placement
+{3a5de77}          % target
+% Remote branch
+\gitremotebranch
+[origmaster]    % node name
+{file.txt} % node text
+{below=of 3a5de77}    % node placement
+{3a5de77}             % target
+% HEAD reference
+\gitHEAD
+{left=of master} % node placement
+{master}          % target
+\end{tikzpicture}
+		\subcaption{Before\ldots}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\gitDAG[grow right sep = 2em]{
+			c7e2daa -- 2c7ae1b -- 3a5de77
+		};
+		% Branch
+		\gitbranch
+		{master}     % node name and text 
+		{above=of 3a5de77} % node placement
+		{3a5de77}          % target
+		% Remote branch
+		\gitremotebranch
+		[origmaster]    % node name
+		{file.txt} % node text
+		{below=of 3a5de77}    % node placement
+		{3a5de77}             % target
+		% HEAD reference
+		\gitHEAD
+		{above=of 2c7ae1b} % node placement
+		{2c7ae1b}          % target
+		\end{tikzpicture}
+		\subcaption{\ldots{} and after}
+	\end{subfigure}
+\end{figure}
+\end{frame}
+
+\subsection{Branch and Merge}
 
 \subsection{Pull}
 
