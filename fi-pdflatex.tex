@@ -7,14 +7,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass{beamer}
-\usetheme[faculty=fi,logo=otinanai]{fibeamer}
+\usetheme[faculty=fi,logo=tudelft_white]{fibeamer}
 \usepackage[utf8]{inputenc}
 \usepackage[main=english]{babel}
 
 %% These macros specify information about the presentation
 \title{Introduction to Git} %% that will be typeset on the
-\subtitle{GEO2020 - 15/12/2017} %% title page.
-\author{Stelios Vitalis, Hugo Ledoux}
+\subtitle{26/11/2018} %% title page.
+\author{Stelios Vitalis}
 	
 %% These additional packages are used within the document:
 \usepackage{ragged2e}  % `\justifying` text
@@ -94,7 +94,7 @@ It's useful because:
 \begin{itemize}
 	\item It tracks history of our work
 	\item It allows us to work as a team
-	\item It can be used to extract statistics about a project
+	\item It can be used to manage a project
 \end{itemize}
 \end{frame}
 
@@ -197,7 +197,7 @@ But don't be confused... It can't replace your cloud file storage!
 	thin,bottom color=violet!30, top color=white,
 	text=violet, minimum width=2.5cm, minimum height=0.8cm]
 	
-	\node[repository] at (0,0) (server) {Server 1};
+	\node[repository] at (0,0) (server) {Server};
 	\node[workspace] at (-3,-3) (user1) {User 1};
 	\node[workspace] at (0,-3) (user2) {User 2};
 	\node[workspace] at (3,-3) (user3) {User 3};
@@ -213,10 +213,49 @@ But don't be confused... It can't replace your cloud file storage!
 \end{figure}
 \end{frame}
 
+\begin{frame}{Distributed}
+\framesubtitle{Architecture}
+
+Every user has a copy of the repository and a workspace.
+\begin{figure}
+	\begin{tikzpicture}
+	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
+	thin,bottom color=orange!30, top color=white,
+	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
+	\tikzstyle{workspace} = [rectangle, draw, violet,
+	thin,bottom color=violet!30, top color=white,
+	text=violet, minimum width=2.5cm, minimum height=0.8cm]
+	
+	\node[repository] at (0,0) (server1) {Server (GitHub)};
+	\node[repository] at (-3,-2.8) (repo1) {User 1};
+	\node[repository] at (0,-2.8) (repo2) {User 2};
+	\node[repository] at (3,-2.8) (repo3) {User 3};
+	\node[workspace] at (-3, -4) (ws1) {User 1};
+	\node[workspace] at (0, -4) (ws2) {User 2};
+	\node[workspace] at (3, -4) (ws3) {User 3};
+	
+	\draw[thick, <->] (repo1) -- (server1);
+	\draw[thick, <->] (repo2) -- (server1);
+	\draw[thick, <->] (repo3) -- (server1);
+	
+	\draw[thick, <->] (repo1) -- (repo2);
+	\draw[thick, <->] (repo2) -- (repo3);
+	
+	\draw[thick, ->] (ws1) -- (repo1);
+	\draw[thick, ->] (ws2) -- (repo2);
+	\draw[thick, ->] (ws3) -- (repo3);
+	
+	\node[repository, scale=0.6] at (4,0.6) {Repository};
+	\node[workspace, scale=0.6] at (4,0) {Workspace};
+	
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
    \begin{frame}{Distributed}
 \framesubtitle{Architecture}
 
-No ``master'' server. Every user has a repository and a workspace.
+No ``master'' server. All repositories are, actually, equal.
 \begin{figure}
 	\begin{tikzpicture}
 	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
@@ -254,6 +293,28 @@ No ``master'' server. Every user has a repository and a workspace.
 	
 	\node[repository, scale=0.6] at (4,0.6) {Repository};
 	\node[workspace, scale=0.6] at (4,0) {Workspace};
+	
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+   \begin{frame}{Distributed}
+\framesubtitle{Architecture}
+
+In fact, no server is needed at all! It can by just a local folder.
+\begin{figure}
+	\begin{tikzpicture}
+	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
+	thin,bottom color=orange!30, top color=white,
+	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
+	\tikzstyle{workspace} = [rectangle, draw, violet,
+	thin,bottom color=violet!30, top color=white,
+	text=violet, minimum width=2.5cm, minimum height=0.8cm]
+	
+	\node[repository] at (0,0) (repo1) {User 1};
+	\node[workspace] at (0, -1.5) (ws1) {User 1};
+	
+	\draw[thick, ->] (ws1) -- (repo1);
 	
 	\end{tikzpicture}
 \end{figure}
@@ -1672,7 +1733,14 @@ There are other platforms out there as well, like Gitlab.
 \end{frame}
 
 \begin{frame}{Github}
-\framesubtitle{Clone a repo}
+\framesubtitle{Host your own project}
+You can create repositories in GitHub and host your source code. Same with GitLab.
+\\
+You can do that before or after you create a local repository.
+\end{frame}
+
+\begin{frame}{Github}
+\framesubtitle{Clone an existing repository}
 \alert{\texttt{git clone https://github.com/qgis/QGIS.git}}
 
 \includegraphics[width=\textwidth]{resources/github.png}
