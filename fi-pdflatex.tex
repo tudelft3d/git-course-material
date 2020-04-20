@@ -12,8 +12,8 @@
 \usepackage[main=english]{babel}
 
 %% These macros specify information about the presentation
-\title{Introduction to Git} %% that will be typeset on the
-\subtitle{18/11/2019} %% title page.
+\title{Introduction to Git(Hub)} %% that will be typeset on the
+\subtitle{20/04/2020} %% title page.
 \author{Stelios Vitalis}
 	
 %% These additional packages are used within the document:
@@ -117,17 +117,17 @@ It's useful because:
 \end{definition}
 \end{frame}
 
-\begin{frame}{Version Control System (VCS)}
-\framesubtitle{Benefits}
+% \begin{frame}{Version Control System (VCS)}
+% \framesubtitle{Benefits}
 
-A VCS:
-\begin{itemize}
-	\item keeps \alert{revisions}
-	\item allows for \alert{true collaboration}
-	\item encapsulates \alert{workflow} (e.g. track time, issues, project management)
-\end{itemize}
+% A VCS:
+% \begin{itemize}
+% 	\item keeps \alert{revisions}
+% 	\item allows for \alert{true collaboration}
+% 	\item encapsulates \alert{workflow} (e.g. track time, issues, project management)
+% \end{itemize}
 
-\end{frame}
+% \end{frame}
 
 %\begin{frame}{VCS vs Cloud}
 %\framesubtitle{Although not really a comparison}
@@ -153,7 +153,7 @@ A VCS:
 %But don't be confused... It can't replace your cloud file storage!
 %\end{frame}
 
-    \begin{frame}{VCS}
+\begin{frame}{VCS}
     \framesubtitle{Definitions}
     
     \begin{block}{Repository}
@@ -165,7 +165,7 @@ A VCS:
 	\end{block}
 \end{frame}
 
-    \subsection{Architecture}
+\subsection{Architecture}
     
     \begin{frame}{Types of VCS}
     There are two types:
@@ -252,73 +252,73 @@ Every user has a copy of the repository and a workspace.
 \end{figure}
 \end{frame}
 
-   \begin{frame}{Distributed}
-\framesubtitle{Architecture}
+%    \begin{frame}{Distributed}
+% \framesubtitle{Architecture}
 
-No ``master'' server. All repositories are, actually, equal.
-\begin{figure}
-	\begin{tikzpicture}
-	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
-	thin,bottom color=orange!30, top color=white,
-	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
-	\tikzstyle{workspace} = [rectangle, draw, violet,
-	thin,bottom color=violet!30, top color=white,
-	text=violet, minimum width=2.5cm, minimum height=0.8cm]
+% No ``master'' server. All repositories are, actually, equal.
+% \begin{figure}
+% 	\begin{tikzpicture}
+% 	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
+% 	thin,bottom color=orange!30, top color=white,
+% 	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
+% 	\tikzstyle{workspace} = [rectangle, draw, violet,
+% 	thin,bottom color=violet!30, top color=white,
+% 	text=violet, minimum width=2.5cm, minimum height=0.8cm]
 	
-	\node[repository] at (-1.5,0) (server1) {Server 1};
-	\node[repository] at (1.5,0) (server2) {Server 2};
-	\node[repository] at (-3,-2.8) (repo1) {User 1};
-	\node[repository] at (0,-2.8) (repo2) {User 2};
-	\node[repository] at (3,-2.8) (repo3) {User 3};
-	\node[workspace] at (-3, -4) (ws1) {User 1};
-	\node[workspace] at (0, -4) (ws2) {User 2};
-	\node[workspace] at (3, -4) (ws3) {User 3};
+% 	\node[repository] at (-1.5,0) (server1) {Server 1};
+% 	\node[repository] at (1.5,0) (server2) {Server 2};
+% 	\node[repository] at (-3,-2.8) (repo1) {User 1};
+% 	\node[repository] at (0,-2.8) (repo2) {User 2};
+% 	\node[repository] at (3,-2.8) (repo3) {User 3};
+% 	\node[workspace] at (-3, -4) (ws1) {User 1};
+% 	\node[workspace] at (0, -4) (ws2) {User 2};
+% 	\node[workspace] at (3, -4) (ws3) {User 3};
 		
-	\draw[thick, <->] (repo1) -- (server1);
-	\draw[thick, <->] (repo2) -- (server1);
-	\draw[thick, <->] (repo3) -- (server1);
+% 	\draw[thick, <->] (repo1) -- (server1);
+% 	\draw[thick, <->] (repo2) -- (server1);
+% 	\draw[thick, <->] (repo3) -- (server1);
 	
-	\draw[thick, <->] (repo1) -- (server2);
-	\draw[thick, <->] (repo2) -- (server2);
-	\draw[thick, <->] (repo3) -- (server2);
+% 	\draw[thick, <->] (repo1) -- (server2);
+% 	\draw[thick, <->] (repo2) -- (server2);
+% 	\draw[thick, <->] (repo3) -- (server2);
 	
-	\draw[thick, <->] (server1) -- (server2);
+% 	\draw[thick, <->] (server1) -- (server2);
 
-	\draw[thick, <->] (repo1) -- (repo2);
-	\draw[thick, <->] (repo2) -- (repo3);
+% 	\draw[thick, <->] (repo1) -- (repo2);
+% 	\draw[thick, <->] (repo2) -- (repo3);
 	
-	\draw[thick, ->] (ws1) -- (repo1);
-	\draw[thick, ->] (ws2) -- (repo2);
-	\draw[thick, ->] (ws3) -- (repo3);
+% 	\draw[thick, ->] (ws1) -- (repo1);
+% 	\draw[thick, ->] (ws2) -- (repo2);
+% 	\draw[thick, ->] (ws3) -- (repo3);
 	
-	\node[repository, scale=0.6] at (4,0.6) {Repository};
-	\node[workspace, scale=0.6] at (4,0) {Workspace};
+% 	\node[repository, scale=0.6] at (4,0.6) {Repository};
+% 	\node[workspace, scale=0.6] at (4,0) {Workspace};
 	
-	\end{tikzpicture}
-\end{figure}
-\end{frame}
+% 	\end{tikzpicture}
+% \end{figure}
+% \end{frame}
 
-   \begin{frame}{Distributed}
-\framesubtitle{Architecture}
+%    \begin{frame}{Distributed}
+% \framesubtitle{Architecture}
 
-In fact, no server is needed at all! It can by just a local folder.
-\begin{figure}
-	\begin{tikzpicture}
-	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
-	thin,bottom color=orange!30, top color=white,
-	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
-	\tikzstyle{workspace} = [rectangle, draw, violet,
-	thin,bottom color=violet!30, top color=white,
-	text=violet, minimum width=2.5cm, minimum height=0.8cm]
+% In fact, no server is needed at all! It can by just a local folder.
+% \begin{figure}
+% 	\begin{tikzpicture}
+% 	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
+% 	thin,bottom color=orange!30, top color=white,
+% 	text=burntorange, minimum width=2.5cm, minimum height=0.8cm]
+% 	\tikzstyle{workspace} = [rectangle, draw, violet,
+% 	thin,bottom color=violet!30, top color=white,
+% 	text=violet, minimum width=2.5cm, minimum height=0.8cm]
 	
-	\node[repository] at (0,0) (repo1) {User 1};
-	\node[workspace] at (0, -1.5) (ws1) {User 1};
+% 	\node[repository] at (0,0) (repo1) {User 1};
+% 	\node[workspace] at (0, -1.5) (ws1) {User 1};
 	
-	\draw[thick, ->] (ws1) -- (repo1);
+% 	\draw[thick, ->] (ws1) -- (repo1);
 	
-	\end{tikzpicture}
-\end{figure}
-\end{frame}
+% 	\end{tikzpicture}
+% \end{figure}
+% \end{frame}
 
     \subsection{Commits}
     
@@ -516,6 +516,14 @@ and, of course, the \alert{changes} of the files that are submitted.
 	{I}          % target
 	\end{tikzpicture}
 \end{figure}
+\end{frame}
+
+\begin{frame}{See you at the lab}
+	
+13.00pm at Discord git-help (voice channel).
+
+Check the git-help text channel for any preparation instructions.
+
 \end{frame}
 
 \section{Git}
