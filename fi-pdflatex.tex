@@ -255,7 +255,7 @@ Every user has a copy of the repository and a workspace.
 %    \begin{frame}{Distributed}
 % \framesubtitle{Architecture}
 
-% No ``master'' server. All repositories are, actually, equal.
+% No ``main'' server. All repositories are, actually, equal.
 % \begin{figure}
 % 	\begin{tikzpicture}
 % 	\tikzstyle{repository}=[rectangle, draw, burntorange, rounded corners,
@@ -420,7 +420,7 @@ and, of course, the \alert{changes} of the files that are submitted.
 		}
 	};
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of D} % node placement
 	{D}          % target
 	\end{tikzpicture}
@@ -439,7 +439,7 @@ and, of course, the \alert{changes} of the files that are submitted.
 		}
 	};
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of D} % node placement
 	{D}          % target
 	\gitbranch
@@ -463,7 +463,7 @@ and, of course, the \alert{changes} of the files that are submitted.
 		}
 	};
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of F} % node placement
 	{F}          % target
 	\gitbranch
@@ -487,7 +487,7 @@ and, of course, the \alert{changes} of the files that are submitted.
 		}
 	};
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of F} % node placement
 	{F}          % target
 	\gitbranch
@@ -511,7 +511,7 @@ and, of course, the \alert{changes} of the files that are submitted.
 		} -- I
 	};
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of I} % node placement
 	{I}          % target
 	\end{tikzpicture}
@@ -574,7 +574,7 @@ Specific definitions:
 };
 % Remote branch
 \gitbranch    % node name
-{master} % node text
+{main} % node text
 {above=of 3a5de77}    % node placement
 {3a5de77}             % target
 % Branch
@@ -713,19 +713,19 @@ The \emph{working directory} is not affected, but an empty repository and index 
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 2c7ae1b} % node placement
 		{2c7ae1b}          % target
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
+		[origmain]    % node name
 		{file.txt} % node text
 		{above=of {working dir}}    % node placement
 		{{working dir}}             % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -740,7 +740,7 @@ The \emph{working directory} is not affected, but an empty repository and index 
 };
 % Branch
 \gitbranch
-{master}     % node name and text 
+{main}     % node name and text 
 {above=of 2c7ae1b} % node placement
 {2c7ae1b}          % target
 % Remote branch
@@ -757,8 +757,8 @@ The \emph{working directory} is not affected, but an empty repository and index 
 {{working dir}}             % target
 % HEAD reference
 \gitHEAD
-{above=of master} % node placement
-{master}          % target
+{above=of main} % node placement
+{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after}
 	\end{subfigure}
@@ -793,12 +793,12 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 2c7ae1b} % node placement
 		{2c7ae1b}          % target
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
+		[origmain]    % node name
 		{file.txt} % node text
 		{above=of index}    % node placement
 		{index}             % target
@@ -810,8 +810,8 @@ That
 		{workspace}             % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -826,19 +826,19 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 3a5de77} % node placement
 		{3a5de77}          % target
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
+		[origmain]    % node name
 		{file.txt} % node text
 		{below=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after}
 	\end{subfigure}
@@ -862,7 +862,7 @@ That
 
 \end{frame}
 
-\begin{frame}{git checkout master}
+\begin{frame}{git checkout main}
 \begin{figure}
 	\begin{subfigure}[b]{\textwidth}
 		\centering
@@ -876,7 +876,7 @@ That
 		};
 		% Remote branch
 		\gitbranch    % node name
-		{master} % node text
+		{main} % node text
 		{above=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% Branch
@@ -904,7 +904,7 @@ That
 		};
 		% Remote branch
 		\gitbranch    % node name
-		{master} % node text
+		{main} % node text
 		{above=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% Branch
@@ -914,8 +914,8 @@ That
 		{1a2e54b}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after. \alert{The working directory will change as well!}}
 	\end{subfigure}
@@ -932,19 +932,19 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 3a5de77} % node placement
 		{3a5de77}          % target
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
+		[origmain]    % node name
 		{file.txt} % node text
 		{below=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -957,12 +957,12 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 3a5de77} % node placement
 		{3a5de77}          % target
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
+		[origmain]    % node name
 		{file.txt} % node text
 		{below=of 3a5de77}    % node placement
 		{3a5de77}             % target
@@ -976,7 +976,7 @@ That
 \end{figure}
 \end{frame}
 
-\begin{frame}{\texttt{git checkout master}}
+\begin{frame}{\texttt{git checkout main}}
 \begin{figure}
 \begin{subfigure}[b]{\textwidth}
 	\centering
@@ -986,12 +986,12 @@ That
 	};
 	% Branch
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of 3a5de77} % node placement
 	{3a5de77}          % target
 	% Remote branch
 	\gitremotebranch
-	[origmaster]    % node name
+	[origmain]    % node name
 	{file.txt} % node text
 	{below=of 3a5de77}    % node placement
 	{3a5de77}             % target
@@ -1011,19 +1011,19 @@ That
 	};
 	% Branch
 	\gitbranch
-	{master}     % node name and text 
+	{main}     % node name and text 
 	{above=of 3a5de77} % node placement
 	{3a5de77}          % target
 	% Remote branch
 	\gitremotebranch
-	[origmaster]    % node name
+	[origmain]    % node name
 	{file.txt} % node text
 	{below=of 3a5de77}    % node placement
 	{3a5de77}             % target
 	% HEAD reference
 	\gitHEAD
-	{left=of master} % node placement
-	{master}          % target
+	{left=of main} % node placement
+	{main}          % target
 	\end{tikzpicture}
 	\subcaption{\ldots{} and after. Back to normal.}
 \end{subfigure}
@@ -1056,13 +1056,13 @@ That
 };
 % Branch
 \gitbranch
-{master}     % node name and text 
+{main}     % node name and text 
 {above=of 3a5de77} % node placement
 {3a5de77}          % target
 % HEAD reference
 \gitHEAD
-{left=of master} % node placement
-{master}          % target
+{left=of main} % node placement
+{main}          % target
 \end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1075,18 +1075,18 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 3a5de77} % node placement
 		{3a5de77}          % target
 % Branch
 \gitbranch
 {new-feature}     % node name and text 
-{above=of master} % node placement
-{master}          % target
+{above=of main} % node placement
+{main}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after.}
 	\end{subfigure}
@@ -1103,18 +1103,18 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 3a5de77} % node placement
 		{3a5de77}          % target
 		% Branch
 		\gitbranch
 		{new-feature}     % node name and text 
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1127,14 +1127,14 @@ That
 		};
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of 3a5de77} % node placement
 		{3a5de77}          % target
 		% Branch
 		\gitbranch
 		{new-feature}     % node name and text 
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		% HEAD reference
 		\gitHEAD
 		{left=of new-feature} % node placement
@@ -1187,7 +1187,7 @@ That
 		};
 		% Remote branch
 		\gitbranch    % node name
-		{master} % node text
+		{main} % node text
 		{above=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% Branch
@@ -1197,8 +1197,8 @@ That
 		{1a2e54b}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1215,7 +1215,7 @@ That
 		};
 		% Remote branch
 		\gitbranch    % node name
-		{master} % node text
+		{main} % node text
 		{above=of 9ef2dad}    % node placement
 		{9ef2dad}             % target
 		% Branch
@@ -1225,8 +1225,8 @@ That
 		{1a2e54b}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after. \alert{The working directory will change as well!}}
 	\end{subfigure}
@@ -1261,7 +1261,7 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitbranch    % node name
-		{master} % node text
+		{main} % node text
 		{above=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% Branch
@@ -1271,8 +1271,8 @@ A conflict happens when during a merge there are changes to the same lines of th
 		{1a2e54b}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1289,7 +1289,7 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitbranch    % node name
-		{master} % node text
+		{main} % node text
 		{above=of 3a5de77}    % node placement
 		{3a5de77}             % target
 		% Branch
@@ -1299,8 +1299,8 @@ A conflict happens when during a merge there are changes to the same lines of th
 		{1a2e54b}          % target
 		% HEAD reference
 		\gitHEAD
-		{left=of master} % node placement
-		{master}          % target
+		{left=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after. \alert{The conflicts are marked and you have to resolvel!}}
 	\end{subfigure}
@@ -1350,19 +1350,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 };
 % Remote branch
 \gitremotebranch
-[origmaster]    % node name
-{origin/master} % node text
+[origmain]    % node name
+{origin/main} % node text
 {right=of C}    % node placement
 {C}             % target
 % Branch
 \gitbranch
-{master}     % node name and text 
+{main}     % node name and text 
 {above=of C} % node placement
 {C}          % target
 % HEAD reference
 \gitHEAD
-{above=of master} % node placement
-{master}          % target
+{above=of main} % node placement
+{main}          % target
 \end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1378,19 +1378,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 };
 % Remote branch
 \gitremotebranch
-[origmaster]    % node name
-{origin/master} % node text
+[origmain]    % node name
+{origin/main} % node text
 {above=of E}    % node placement
 {E}             % target
 % Branch
 \gitbranch
-{master}     % node name and text 
+{main}     % node name and text 
 {above=of C} % node placement
 {C}          % target
 % HEAD reference
 \gitHEAD
-{above=of master} % node placement
-{master}          % target
+{above=of main} % node placement
+{main}          % target
 \end{tikzpicture}
 		\subcaption{\ldots{} and after.}
 	\end{subfigure}
@@ -1411,19 +1411,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 };
 % Remote branch
 \gitremotebranch
-[origmaster]    % node name
-{origin/master} % node text
+[origmain]    % node name
+{origin/main} % node text
 {above=of B}    % node placement
 {B}             % target
 % Branch
 \gitbranch
-{master}     % node name and text 
+{main}     % node name and text 
 {above=of E} % node placement
 {E}          % target
 % HEAD reference
 \gitHEAD
-{above=of master} % node placement
-{master}          % target
+{above=of main} % node placement
+{main}          % target
 \end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1440,19 +1440,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 };
 % Remote branch
 \gitremotebranch
-[origmaster]    % node name
-{origin/master} % node text
+[origmain]    % node name
+{origin/main} % node text
 {above=of C}    % node placement
 {C}             % target
 % Branch
 \gitbranch
-{master}     % node name and text 
+{main}     % node name and text 
 {above=of E} % node placement
 {E}          % target
 % HEAD reference
 \gitHEAD
-{above=of master} % node placement
-{master}          % target
+{above=of main} % node placement
+{main}          % target
 \end{tikzpicture}
 		\subcaption{\ldots{} and after.}
 	\end{subfigure}
@@ -1486,19 +1486,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{right=of C}    % node placement
 		{C}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of C} % node placement
 		{C}          % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1514,19 +1514,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{right=of E}    % node placement
 		{E}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of E} % node placement
 		{E}          % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after.}
 	\end{subfigure}
@@ -1547,19 +1547,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{above=of B}    % node placement
 		{B}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of E} % node placement
 		{E}          % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1576,19 +1576,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{above=of C}    % node placement
 		{C}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{right=of F} % node placement
 		{F}          % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after.}
 	\end{subfigure}
@@ -1623,19 +1623,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{above=of C}    % node placement
 		{C}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{above=of E}% node placement
 			{E}          % target
 			% HEAD reference
 			\gitHEAD
-			{above=of master} % node placement
-			{master}          % target
+			{above=of main} % node placement
+			{main}          % target
 			\end{tikzpicture}
 			\subcaption{Before\ldots}
 		\end{subfigure}
@@ -1651,19 +1651,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 			};
 			% Remote branch
 			\gitremotebranch
-			[origmaster]    % node name
-			{origin/master} % node text
+			[origmain]    % node name
+			{origin/main} % node text
 			{right=of E}    % node placement
 			{E}             % target
 			% Branch
 			\gitbranch
-			{master}     % node name and text 
+			{main}     % node name and text 
 			{above=of E} % node placement
 			{E}          % target
 			% HEAD reference
 			\gitHEAD
-			{above=of master} % node placement
-			{master}          % target
+			{above=of main} % node placement
+			{main}          % target
 			\end{tikzpicture}
 			\subcaption{\ldots{} and after.}
 		\end{subfigure}
@@ -1685,19 +1685,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{above=of C}    % node placement
 		{C}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{right=of F} % node placement
 		{F}          % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{Before\ldots}
 	\end{subfigure}
@@ -1714,19 +1714,19 @@ A conflict happens when during a merge there are changes to the same lines of th
 		};
 		% Remote branch
 		\gitremotebranch
-		[origmaster]    % node name
-		{origin/master} % node text
+		[origmain]    % node name
+		{origin/main} % node text
 		{above=of F}    % node placement
 		{F}             % target
 		% Branch
 		\gitbranch
-		{master}     % node name and text 
+		{main}     % node name and text 
 		{right=of F} % node placement
 		{F}          % target
 		% HEAD reference
 		\gitHEAD
-		{above=of master} % node placement
-		{master}          % target
+		{above=of main} % node placement
+		{main}          % target
 		\end{tikzpicture}
 		\subcaption{\ldots{} and after.}
 	\end{subfigure}
